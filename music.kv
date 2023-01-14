@@ -1,0 +1,190 @@
+WindowManager:
+	MainWindow:
+	DownloadLayout:
+	PlaylistLayout:
+
+
+
+<MainWindow>
+	name: 'Main'
+	canvas.before:
+		Color:
+			#rgba: (238/255, 2/255, 36/255, 1)
+			rgba: (255/255, 255/255, 255/255, 1)
+		Rectangle:
+			pos: self.pos
+			size: self.size
+	BoxLayout:
+		orientation: "horizontal"
+		size: root.width, root.height
+		padding: 50
+		spacing: 20
+
+		Button:
+			text: "[color=#fffff]Playlist[/color]"
+			#text: "Playlist"
+			markup: True
+			font_size: 32
+			#bold: True
+			#outline_color: (0,0,0)
+			#outline_width: 2
+			background_normal: ''
+			background_color: (238/255, 2/255, 36/255,1)
+			on_release: 
+				app.root.current = 'playlist'
+				root.manager.transition.direction = "right"
+
+		Button:
+			text: "[color=#fffff]Download[/color]"
+			#text: "Download"
+			markup: True
+			font_size: 32
+			#bold: True
+			#outline_color: (0,0,0)
+			#outline_width: 2
+			background_normal: ''
+			background_color: (238/255, 2/255, 36/255,1)
+			on_release: 
+				app.root.current = 'download'
+				root.manager.transition.direction = "left"
+
+<PlaylistLayout>
+	name: 'playlist'
+	canvas.before:
+		Color:
+			#rgba: (238/255, 2/255, 36/255, 1)
+			rgba: (255/255, 255/255, 255/255, 1)
+		Rectangle:
+			pos: self.pos
+			size: self.size
+
+	FloatLayout:		
+
+		RoundedButton:
+			text: '<'
+			font_size: 32
+			bold: True
+			color: (105/255, 1/255, 1/255, 1)
+			outline_color: (0,0,0)
+			outline_width: 1
+			size_hint: 0.1, 0.1
+			#{'x', 'y', 'top', 'bottom', 'left', 'right'}
+			pos_hint: {'x':0, 'top':1}
+			on_release: 
+				app.root.current = 'Main'
+				root.manager.transition.direction = "left"
+		
+		AllSongButton:
+			text: '[color=#fffff]ALL SONGS[/color]'
+			markup: True
+			font_size: 32
+			bold: False
+			#color: (105/255, 1/255, 1/255, 1)
+			#outline_color: (0,0,0)
+			#outline_width: 1
+			size_hint: 0.6, 0.1
+			#{'x', 'y', 'top', 'bottom', 'left', 'right'}
+			pos_hint: {'x':0.2, 'top':0.7}
+		
+
+
+<DownloadLayout>
+	name: 'download'
+	canvas.before:
+		Color:
+			#rgba: (238/255, 2/255, 36/255, 1)
+			rgba: (255/255, 255/255, 255/255, 1)
+		Rectangle:
+			pos: self.pos
+			size: self.size
+			
+	FloatLayout:
+		
+		RoundedButton:
+			text: '<'
+			font_size: 32
+			bold: True
+			color: (105/255, 1/255, 1/255, 1)
+			outline_color: (0,0,0)
+			outline_width: 1
+			size_hint: 0.1, 0.1
+			#{'x', 'y', 'top', 'bottom', 'left', 'right'}
+			pos_hint: {'x':0, 'top':1}	
+			on_release: 
+				app.root.current = 'Main'
+				root.manager.transition.direction = "right"	
+
+		Label:
+			markup: True
+			text: "[font=times]Enter the YouTube [b]URL[/b] for the song:  [/font]"
+			font_size: 32
+			size_hint: 0.8, 0.1
+			color: (1,1,1,1)
+			outline_color: (0,0,0)
+			outline_width: 2
+			pos_hint: {'y':0.6}
+
+		TextInput:
+			id: url_input
+			multiline: False
+			size_hint: 0.8, 0.05
+			pos_hint: {'x':0.07, 'y':0.5}
+		Label:
+			markup: True
+			text: "[font=times][b]Name[/b] that the file would be saved as:[/font]"
+			font_size: 32
+			size_hint: 0.8, 0.1
+			pos_hint: {'y':0.4}
+			outline_color: (0,0,0)
+			outline_width: 2
+		TextInput:
+			id: url_file_name
+			multiline: False
+			size_hint: 0.5, 0.05
+			pos_hint: {'x':0.07, 'y':0.3}
+		
+		Button:
+			text: "Download"
+			font_size: 32
+			bold: True
+			outline_color: (0,0,0)
+			outline_width: 1
+			size_hint: 0.9, 0.2
+			on_press: root.download_url()
+			pos_hint: {'x':0.05, 'y': 0.05}
+			
+		
+<RoundedButton@Button>
+	background_color: (0,0,0,0)
+	background_normal: ''
+	canvas.before:
+		Color:
+			rgba: (64/255, 64/255, 64/255, 1)
+		RoundedRectangle:
+			size: self.size
+			pos: self.pos
+			radius: [360]
+
+<AllSongButton@Button>
+	background_color: (0,0,0,0)
+	background_normal: ''
+	canvas.before:
+		Color:
+			rgba: (238/255, 2/255, 36/255,1)
+		RoundedRectangle:
+			size: self.size
+			pos: self.pos
+			radius: [20]
+
+<SmoothButton@Button>
+	background_color: (0,0,0,0)
+	background_normal: ''
+	back_color: (1,0,1,1)
+	border_radius: [180]
+	canvas.before:
+		Color:
+			rgba: self.back_color
+		RoundedRectangle:
+			size: self.size
+			pos: self.pos
+			radius: self.border_radius
